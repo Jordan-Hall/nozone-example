@@ -8,7 +8,7 @@
       "prefix": "liberty-examples",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/apps/faq",
             "index": "apps/faq/src/index.html",
@@ -17,8 +17,11 @@
             "tsConfig": "apps/faq/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/faq/src/favicon.ico", "apps/faq/src/assets"],
-            "styles": ["apps/faq/src/styles.css"],
-            "scripts": []
+            "styles": ["apps/faq/src/styles.scss"],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "apps/faq/webpack.config.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -51,9 +54,12 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "faq:build"
+            "browserTarget": "faq:build",
+            "customWebpackConfig": {
+              "path": "apps/faq/webpack.config.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -111,6 +117,80 @@
           "options": {
             "tsConfig": ["apps/faq-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/faq-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "libertyware-core": {
+      "projectType": "library",
+      "root": "libs/libertyware/core",
+      "sourceRoot": "libs/libertyware/core/src",
+      "prefix": "liberty-examples",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/libertyware/core/tsconfig.lib.json",
+            "project": "libs/libertyware/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/libertyware/core/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/libertyware/core/src/**/*.ts",
+              "libs/libertyware/core/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/libertyware/core"],
+          "options": {
+            "jestConfig": "libs/libertyware/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "icons": {
+      "projectType": "library",
+      "root": "libs/icons",
+      "sourceRoot": "libs/icons/src",
+      "prefix": "liberty-examples",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/icons/tsconfig.lib.json",
+            "project": "libs/icons/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/icons/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/icons/src/**/*.ts",
+              "libs/icons/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/icons"],
+          "options": {
+            "jestConfig": "libs/icons/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

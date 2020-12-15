@@ -16,9 +16,12 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "accessToken": "MmY5OGQwM2YtMWYzYi00ZDVjLTlhOTgtMTFkZDJkMjExNDYzfHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
@@ -29,6 +32,12 @@
     "faq-e2e": {
       "tags": [],
       "implicitDependencies": ["faq"]
+    },
+    "libertyware-core": {
+      "tags": []
+    },
+    "icons": {
+      "tags": ["icons"]
     }
   }
 }
